@@ -19,6 +19,9 @@ module.exports = (app) =>{
     app.get('/filtro/:filtragem',
     ProjetosController.filtro)
 
+    app.get('/destaque',
+    ProjetosController.destaque)
+
     app.get('/projetos',
     ProjetosController.index)
 

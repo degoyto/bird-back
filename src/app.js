@@ -21,8 +21,8 @@ app.use(cors())
 
 //Rotas
     require("./routes")(app)
-
-sequelize.sync({force:true}).then(()=>{
+//
+sequelize.sync({force:false}).then(()=>{
     app.listen(config.port)
     console.log("deu certo?")
 })

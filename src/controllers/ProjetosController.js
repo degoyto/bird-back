@@ -29,13 +29,7 @@ module.exports = {
       if(req.query.tableColumn && req.query.orderby)
         orderBy = [[req.query.tableColumn, req.query.orderby]];
       
-      var projeto;
-
-      console.log(req.query);
-      console.log(nome);
-
-      if(nome != '')
-         projeto = await Projeto.findAll({
+      var projeto = await Projeto.findAll({
           where: {
             [Op.or] : {
               tipo: nome,
@@ -45,16 +39,99 @@ module.exports = {
           order: orderBy,
           limit: limite
         })
-      else 
-         projeto = await Projeto.findAll({
-           order: orderBy,
-           limit: limite
-         })
       
       res.send(projeto)  
-    
-
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({
+        error: "Erro get"
+      })
+    }
+  },
+  async destaque(req, res){
+    try {
+      const Op = Sequelize.Op;
+      var limit = parseInt(req.query.limit) || 15;
       
+      var data = await Projeto.findAll({
+        where: {
+          [Op.and]:{
+            tipo: {
+              [Op.not]: ['SOM', "DOCUMENTO"]
+            }
+          }
+        },
+        limit
+      })
+
+      res.send(data);
+    }
+
+    catch(err){
+      res.status(500).send(err);
+    }
+  },
+  async show (req, res) {
+    try {
+      const projeto = await Projeto.findByPk(req.params.projetoId)
+      res.send(projeto)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to show the songs'
+      })
+    }
+  },
+  async post (req, res) {
+    try {
+      const projeto = await Projeto.create(req.body)
+      console.log(req.file)
+      res.send(projeto)
+      
+    } catch (err) {
+      res.status(500).send({
+        error: "Erro post"
+      })
+    }
+  },
+  async login (req, res) {
+    try {
+      
+      const {id, password} = req.body
+      console.log(req.body)
+      const proj = await Projeto.findOne({
+        where: {
+          id: id
+        }
+      })
+
+      if (!proj) {
+        return res.status(403).send({
+          error: 'Email incorreto'
+        })
+      }
+
+      const senhaValida = await proj.comparePassword(password)
+      console.log(senhaValida)
+      if (!senhaValida) {
+        return res.status(403).send({
+          error: 'Senha incorreta'
+        })
+      }
+      const projJson = proj.toJSON()
+      res.send({
+        proj: projJson,
+        
+      })
+    } catch (err) {
+        
+      res.status(500).send({
+        error: 'An error has occured trying to log in'
+        
+      })
+    }}
+}
+
+
       // if (nome=="aplicativos"){
       //   const projeto = await Projeto.findAll({
       //     where: {
@@ -150,70 +227,3 @@ module.exports = {
       //   res.send(projeto)  
       // }
       
-      
-    } catch (err) {
-      console.log(err);
-      res.status(500).send({
-        error: "Erro get"
-      })
-    }
-  },
-  async show (req, res) {
-    try {
-      const projeto = await Projeto.findByPk(req.params.projetoId)
-      res.send(projeto)
-    } catch (err) {
-      res.status(500).send({
-        error: 'an error has occured trying to show the songs'
-      })
-    }
-  },
-  async post (req, res) {
-    try {
-      const projeto = await Projeto.create(req.body)
-      console.log(req.file)
-      res.send(projeto)
-      
-    } catch (err) {
-      res.status(500).send({
-        error: "Erro post"
-      })
-    }
-  },
-  async login (req, res) {
-    try {
-      
-      const {id, password} = req.body
-      console.log(req.body)
-      const proj = await Projeto.findOne({
-        where: {
-          id: id
-        }
-      })
-
-      if (!proj) {
-        return res.status(403).send({
-          error: 'Email incorreto'
-        })
-      }
-
-      const senhaValida = await proj.comparePassword(password)
-      console.log(senhaValida)
-      if (!senhaValida) {
-        return res.status(403).send({
-          error: 'Senha incorreta'
-        })
-      }
-      const projJson = proj.toJSON()
-      res.send({
-        proj: projJson,
-        
-      })
-    } catch (err) {
-        
-      res.status(500).send({
-        error: 'An error has occured trying to log in'
-        
-      })
-    }}
-}
