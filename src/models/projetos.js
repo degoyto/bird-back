@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     likes: DataTypes.INTEGER,
     arquivo: DataTypes.STRING,
     password: DataTypes.STRING,
+    novo: DataTypes.STRING
     
   },
     
