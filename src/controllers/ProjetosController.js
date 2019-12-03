@@ -28,17 +28,29 @@ module.exports = {
       
       if(req.query.tableColumn && req.query.orderby)
         orderBy = [[req.query.tableColumn, req.query.orderby]];
-    
-      const projeto = await Projeto.findAll({
-        where: {
-          [Op.or] : {
-            tipo: nome,
-            type: nome
-          }
-        },
-        order: orderBy,
-        limit: limite
-      })
+      
+      var projeto;
+
+      console.log(req.query);
+      console.log(nome);
+
+      if(nome != '')
+         projeto = await Projeto.findAll({
+          where: {
+            [Op.or] : {
+              tipo: nome,
+              type: nome
+            }
+          },
+          order: orderBy,
+          limit: limite
+        })
+      else 
+         projeto = await Projeto.findAll({
+           order: orderBy,
+           limit: limite
+         })
+      
       res.send(projeto)  
     
 
