@@ -1,4 +1,5 @@
 const AuthenticationController = require("./controllers/AuthenticationController")
+const DenunciaController = require("./controllers/DenunciaController")
 const AuthenticationControllerPolicy = require("./policies/AuthenticationControllerPolicy")
 const ProjetosController = require("./controllers/ProjetosController")
 const multerConfig = require ("./config/multerConfig")
@@ -9,6 +10,9 @@ const multer = require("multer")
 module.exports = (app) =>{
     app.post("/register", AuthenticationControllerPolicy.register,
     AuthenticationController.register)
+
+    app.post("/denunciar",
+    DenunciaController.register)
 
     app.post('/login',
     AuthenticationController.login)
