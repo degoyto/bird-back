@@ -71,6 +71,47 @@ module.exports = {
       res.status(500).send(err);
     }
   },
+  async recentes(req,res){
+    try {      
+      var data = await Projeto.findAll({
+        order: [['createdAt', 'desc']],
+        limit : 10
+      })
+
+      res.send(data);
+    }
+
+    catch(err){
+      res.status(500).send(err);
+    }
+  },
+  async pesquisa (req,res){
+    const Op = Sequelize.Op;
+    const term = `%${req.query.term}%`;
+
+    try {      
+      var data = await Projeto.findAll({
+        where:{
+          [Op.or]:{
+            [Op.like]: {
+              title: term
+            },
+            [Op.like]: {
+              tags: term
+            }
+          }          
+        },
+        order: [['createdAt', 'desc']],
+        limit : 10
+      })
+
+      res.send(data);
+    }
+
+    catch(err){
+      res.status(500).send(err);
+    }
+  },
   async show (req, res) {
     try {
       const projeto = await Projeto.findByPk(req.params.projetoId)

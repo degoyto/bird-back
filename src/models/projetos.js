@@ -33,8 +33,11 @@ module.exports = (sequelize, DataTypes) => {
     likes: DataTypes.INTEGER,
     arquivo: DataTypes.STRING,
     password: DataTypes.STRING,
-    novo: DataTypes.STRING
-    
+    novo: DataTypes.STRING,
+    tipagem: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    } 
   },
     
     {

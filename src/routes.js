@@ -26,6 +26,12 @@ module.exports = (app) =>{
     app.get('/destaque',
     ProjetosController.destaque)
 
+    app.get('/recentes',
+    ProjetosController.recentes)
+
+    app.get('/pesquisa',
+    ProjetosController.pesquisa)
+
     app.get('/projetos',
     ProjetosController.index)
 

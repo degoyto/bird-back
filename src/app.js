@@ -23,7 +23,7 @@ app.use(cors())
     require("./routes")(app)
 //
 
-sequelize.sync({force:false}).then(()=>{
+    sequelize.sync({force:false}).then(()=>{
     app.listen(config.port)
     console.log("deu certo?")
 })
