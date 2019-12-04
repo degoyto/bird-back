@@ -1,5 +1,12 @@
 const Promise = require('bluebird')
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
+const aws = require("aws-sdk")
+
+const s3 =  new aws.S3({
+    accessKeyId: process.env.AWS_ACCESS_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_DEFAULT_REGION,
+});
 
 function hashPassword (proj, options) {
   const SALT_FACTOR = 8
@@ -35,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     novo: DataTypes.STRING,
     tipagem: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(50),
       allowNull: true
     } 
   },

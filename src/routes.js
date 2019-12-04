@@ -35,11 +35,12 @@ module.exports = (app) =>{
     app.get('/projetos',
     ProjetosController.index)
 
-    app.get('/noticia/:noticiaId', 
-    ProjetosController.show)
-
     app.post('/enviaarquivo', 
     ProjetosController.post)
+    
+    app.delete('/apaga/:projetoId',
+      ProjetosController.delete
+    )
 
     app.post("/up", multer(multerConfig).single("file"), async (req, res) => {
         const { originalname: name, size, key, location: url = "" } = req.file;
@@ -57,7 +58,8 @@ module.exports = (app) =>{
         return res.send(url);
       });
     
-   
+      app.get("/denunciar",
+      DenunciaController.show)
 
 
     
