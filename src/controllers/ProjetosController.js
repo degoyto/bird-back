@@ -124,13 +124,15 @@ module.exports = {
   },
   async post (req, res) {
     try {
+      console.log(req.body)
       const projeto = await Projeto.create(req.body)
-      console.log(req.file)
+     
+      
       res.send(projeto)
       
     } catch (err) {
       res.status(500).send({
-        error: "Erro post"
+        error: err
       })
     }
   },
@@ -169,7 +171,19 @@ module.exports = {
         error: 'An error has occured trying to log in'
         
       })
-    }}
+    }},
+    async delete (req, res) {
+      try {
+        console.log(req.body)
+        const projeto = await Projeto.findByPk(req.params.id)
+        await projeto.remove()
+        
+      } catch (err) {
+        res.status(500).send({
+          error: err
+        })
+      }
+    },  
 }
 
 
