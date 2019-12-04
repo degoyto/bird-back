@@ -17,9 +17,6 @@ module.exports = {
   },
   async filtro (req, res) {
     try {
-      console.log(req.params);
-      console.log(req.query);
-
       const Op = Sequelize.Op;
       const nome = req.params.filtragem || '';
       const limite = parseInt(req.query.limit) || 50;
