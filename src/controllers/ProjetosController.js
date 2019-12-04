@@ -174,9 +174,9 @@ module.exports = {
     }},
     async delete (req, res) {
       try {
-        console.log(req.body)
-        const projeto = await Projeto.findByPk(req.params.id)
-        await projeto.remove()
+        
+        const projeto = await Projeto.findByPk(req.params.projetoId)
+        await projeto.destroy()
         
       } catch (err) {
         res.status(500).send({
