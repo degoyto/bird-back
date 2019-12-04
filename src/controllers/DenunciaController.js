@@ -13,4 +13,14 @@ module.exports = {
       })
     }
   },
+  async show (req, res) {
+    try {
+      const denuncia = await Denuncia.findAll()
+      res.send(denuncia)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to show the songs'
+      })
+    }
+  },
 }

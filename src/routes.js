@@ -58,7 +58,8 @@ module.exports = (app) =>{
         return res.send(url);
       });
     
-   
+      app.get("/denunciar",
+      DenunciaController.show)
 
 
     
