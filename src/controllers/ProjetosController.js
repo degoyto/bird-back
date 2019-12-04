@@ -87,22 +87,29 @@ module.exports = {
   },
   async pesquisa (req,res){
     const Op = Sequelize.Op;
-    const term = `%${req.query.term}%`;
 
+    const term = `%${req.params.search}%`;
+    var order = [['createdAt', 'DESC']];
+      
+      if(req.query.tableCollumn && req.query.orderby)
+        order = [[req.query.tableCollumn, req.query.orderby]];
+
+    console.log(term);
+    
     try {      
       var data = await Projeto.findAll({
         where:{
-          [Op.or]:{
-            [Op.like]: {
-              title: term
+          [Op.or]:{ 
+          title: {
+             [Op.like]: term  
             },
-            [Op.like]: {
-              tags: term
+          tags: {
+              [Op.like]: term
             }
-          }          
+          }
         },
-        order: [['createdAt', 'desc']],
-        limit : 10
+        order,
+        limit : 15
       })
 
       res.send(data);

@@ -29,7 +29,7 @@ module.exports = (app) =>{
     app.get('/recentes',
     ProjetosController.recentes)
 
-    app.get('/pesquisa',
+    app.get('/pesquisa/:search',
     ProjetosController.pesquisa)
 
     app.get('/projetos',
