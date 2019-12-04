@@ -22,7 +22,7 @@ module.exports = {
 
       const Op = Sequelize.Op;
       const nome = req.params.filtragem || '';
-      const limite = parseInt(req.query.limit) || 15;
+      const limite = parseInt(req.query.limit) || 50;
   
       var orderBy = [['createdAt', 'DESC']];
       
@@ -75,7 +75,7 @@ module.exports = {
     try {      
       var data = await Projeto.findAll({
         order: [['createdAt', 'desc']],
-        limit : 10
+        limit : 20
       })
 
       res.send(data);
@@ -109,7 +109,7 @@ module.exports = {
           }
         },
         order,
-        limit : 15
+        limit : 50
       })
 
       res.send(data);
