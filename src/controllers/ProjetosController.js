@@ -15,6 +15,40 @@ module.exports = {
       })
     }
   },
+  async index2 (req, res) {
+    const idzinho=req.params.id
+    try {
+      const projeto = await Projeto.findByPk(idzinho)
+      res.send(projeto)
+      
+    } catch (err) {
+      res.status(500).send({
+        error: "Erro get"
+      })
+    }
+  },
+  async aprova (req, res) {
+    const idzinho=req.params.id
+    console.log(idzinho)
+    try {
+      const projeto = await Projeto.update({
+        visto: 1
+        },
+        {
+        where:
+        {
+        id: idzinho
+        }
+        })
+      console.log(projeto)
+      res.send(projeto)
+      
+    } catch (err) {
+      res.status(500).send({
+        error: "Erro get"
+      })
+    }
+  },
   async filtro (req, res) {
     try {
       const Op = Sequelize.Op;
@@ -22,7 +56,7 @@ module.exports = {
       const limite = parseInt(req.query.limit) || 50;
   
       var orderBy = [['createdAt', 'DESC']];
-      
+      console.log(nome)
       if(req.query.tableColumn && req.query.orderby)
         orderBy = [[req.query.tableColumn, req.query.orderby]];
       
@@ -30,7 +64,8 @@ module.exports = {
           where: {
             [Op.or] : {
               tipo: nome,
-              type: nome
+              type: nome,
+              visto:nome
             }
           },
           order: orderBy,

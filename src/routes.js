@@ -35,6 +35,9 @@ module.exports = (app) =>{
     app.get('/projetos',
     ProjetosController.index)
 
+    app.get('/projetos/:id',
+    ProjetosController.index2)
+
     app.post('/enviaarquivo', 
     ProjetosController.post)
     
@@ -63,6 +66,9 @@ module.exports = (app) =>{
 
       app.get("/conta/:numero",
       DenunciaController.conta)
+
+      app.put("/aprova/:id",
+      ProjetosController.aprova)
 
 
     
