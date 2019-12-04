@@ -44,6 +44,9 @@ module.exports = (app) =>{
     app.delete('/apaga/:projetoId',
       ProjetosController.delete
     )
+    app.delete('/deletadenuncia/:id',
+      DenunciaController.delete
+    )
 
     app.post("/up", multer(multerConfig).single("file"), async (req, res) => {
         const { originalname: name, size, key, location: url = "" } = req.file;

@@ -22,7 +22,24 @@ module.exports = {
         error: 'an error has occured trying to show the songs'
       })
     }
-  },
+  },async delete (req, res) {
+    const idzinho= req.params.id
+    console.log(idzinho)
+    try {
+      
+      const projeto = await Denuncia.destroy({
+        where: {
+            projetoid:idzinho
+        }
+    })
+      
+      
+    } catch (err) {
+      res.status(500).send({
+        error: err
+      })
+    }
+  },  
   async conta (req, res) {
     const numero = req.params.numero
     const Op = Sequelize.Op;
