@@ -61,6 +61,9 @@ module.exports = (app) =>{
       app.get("/denunciar",
       DenunciaController.show)
 
+      app.get("/conta/:numero",
+      DenunciaController.conta)
+
 
     
 }

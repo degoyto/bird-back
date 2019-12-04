@@ -23,4 +23,26 @@ module.exports = {
       })
     }
   },
+  async conta (req, res) {
+    const numero = req.params.numero
+    const Op = Sequelize.Op;
+    const denuncia ={total:null}
+    try {
+      denuncia.total = await Denuncia.count({
+        where:{ projetoid: numero,
+        }
+      })
+      
+      res.send(denuncia)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to show the songs'
+      })
+    }
+  },
+
+
+
+
+  
 }
