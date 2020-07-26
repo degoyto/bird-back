@@ -12,14 +12,14 @@ const morgan = require("morgan")
 
 
 const app = express();
-var corsOptions = {
+ 
+app.use (morgan('combined'))
+app.use(cors({
   "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 204
-}
-app.use (morgan('combined'))
-app.use(cors(corsOptions))
+}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
