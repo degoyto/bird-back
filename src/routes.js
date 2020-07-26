@@ -48,7 +48,7 @@ module.exports = (app) =>{
       DenunciaController.delete
     )
 
-    app.post("/up", multer(multerConfig).single("file"), async (req, res, next) => {
+    app.post("/up", multer(multerConfig).single("file"), async (req, res) => {
         const { originalname: name, size, key, location: url = "" } = req.file;
       
         
