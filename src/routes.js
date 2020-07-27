@@ -61,7 +61,7 @@ module.exports = (app) =>{
       
         
       
-        return res.send(url);
+        return res.json({url});
       });
     
       app.get("/denunciar",
